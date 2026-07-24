@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GridBridge PoC | AEDC Network Planning Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+
+</head>
+<body>
+
+<!-- ============ SIDEBAR ============ -->
+<nav class="sidebar" id="sidebar">
+  <div class="brand">
+    <div class="brand-icon">
+      <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    </div>
+    <div>
+      <div class="brand-text">GridBridge</div>
+      <div class="brand-sub">AEDC Platform</div>
+    </div>
+  </div>
+
+  <ul class="nav-menu">
+    <div class="nav-section-label">Overview</div>
+    <li class="nav-item active" data-view="view-exec" data-title="Executive Summary">
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 3h7v7H3V3zm11 0h7v7h-7V3zM3 14h7v7H3v-7zm11 0h7v7h-7v-7z" fill-rule="evenodd"/></svg>
+      <span class="nav-label">Executive Summary</span>
+    </li>
+    <div class="nav-section-label">Network Analysis</div>
+    <li class="nav-item" data-view="view-twin" data-title="Digital Twin">
+      <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51L8.59 10.49" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+      <span class="nav-label">Digital Twin</span>
+    </li>
+    <li class="nav-item" data-view="view-load" data-title="Load Analysis">
+      <svg class="nav-icon" viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="nav-label">Load Analysis</span>
+    </li>
+    <li class="nav-item" data-view="view-constraint" data-title="Constraint Analysis">
+      <svg class="nav-icon" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="currentColor" stroke-width="2" fill="none"/><line x1="12" y1="9" x2="12" y2="13" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="17" r="1" fill="currentColor"/></svg>
+      <span class="nav-label">Constraint Analysis</span>
+    </li>
+    <div class="nav-section-label">Planning</div>
+    <li class="nav-item" data-view="view-invest" data-title="Investment Planning">
+      <svg class="nav-icon" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23" stroke="currentColor" stroke-width="2"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      <span class="nav-label">Investment Planning</span>
+    </li>
+    <li class="nav-item" data-view="view-scenario" data-title="Scenario Simulation">
+      <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="7" cy="7" r="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17" cy="17" r="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h10a2 2 0 012 2v2M9 21h10a2 2 0 002-2v-10a2 2 0 00-2-2H9a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+      <span class="nav-label">Scenario Simulation</span>
+    </li>
+    <div class="nav-section-label">DER & Storage</div>
+    <li class="nav-item" data-view="view-minigrid" data-title="Mini-grid">
+      <svg class="nav-icon" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2" stroke="currentColor" stroke-width="2" fill="none"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+      <span class="nav-label">Mini-grid</span>
+    </li>
+    <li class="nav-item" data-view="view-vpp" data-title="Virtual Power Plant">
+      <svg class="nav-icon" viewBox="0 0 24 24"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10 13,2" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/></svg>
+      <span class="nav-label">VPP</span>
+    </li>
+    <div class="nav-section-label">Data</div>
+    <li class="nav-item" data-view="view-data" data-title="Data Quality">
+      <svg class="nav-icon" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3" stroke="currentColor" stroke-width="2" fill="none"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" stroke="currentColor" stroke-width="2" fill="none"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+      <span class="nav-label">Data Quality</span>
+    </li>
+  </ul>
+
+  <div class="sidebar-footer">
+    <span class="nav-label">v1.0.0 &mdash; PoC Build</span>
+  </div>
+</nav>
+
+<!-- ============ MAIN AREA ============ -->
+<div class="main-area">
+  <!-- Top Nav -->
+  <header class="topnav">
+    <div class="topnav-left">
+      <button id="toggle-sidebar" onclick="toggleSidebar()" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;padding:4px;border-radius:4px;" title="Toggle sidebar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5a6677" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <span class="page-title" id="page-title">Executive Summary</span>
+      <span class="page-crumb">AEDC — Garki 33/11kV District</span>
+    </div>
+    <div class="topnav-right">
+      <div class="topnav-stat"><span class="dot green"></span>SCADA Online</div>
+      <div class="topnav-stat"><span class="dot green"></span>GIS Sync</div>
+      <div class="topnav-stat"><span class="dot amber"></span>2 Alerts</div>
+      <div class="topnav-clock" id="clock">--:--:--</div>
+    </div>
+  </header>
+
+  <!-- Workspace -->
+  <div class="workspace" id="workspace">
+
+    <!-- ===== 1. EXECUTIVE SUMMARY ===== -->
+    <div class="view active" id="view-exec">
+      <div class="g4 mb20">
+        <div class="card">
+          <div class="kpi-lbl">Network Health Score</div>
+          <div class="kpi-val" id="exec-health">—</div>
+          <div class="kpi-sub">84 of 86 assets operating normally</div>
+        </div>
+        <div class="card">
+          <div class="kpi-lbl">Critically Overloaded</div>
+          <div class="kpi-val critical" id="exec-critical">2</div>
+          <div class="kpi-sub">TX-03, TX-07 require urgent intervention</div>
+        </div>
+        <div class="card">
+          <div class="kpi-lbl">Investment Required</div>
+          <div class="kpi-val accent">₦278k</div>
+          <div class="kpi-sub">8 projects across 2 feeders</div>
+        </div>
+        <div class="card">
+          <div class="kpi-lbl">Data Readiness</div>
+          <div class="kpi-val healthy">91%</div>
+          <div class="kpi-sub">Ready for planning simulation</div>
+        </div>
+      </div>
+      <div class="g4 mb20">
+        <div class="card">
+          <div class="kpi-lbl">Highest Loaded Asset</div>
+          <div class="kpi-val critical sm">112%</div>
+          <div class="kpi-sub">TX-07 &mdash; Garki Feeder 1</div>
+        </div>
+        <div class="card">
+          <div class="kpi-lbl">Total Customers</div>
+          <div class="kpi-val">1,085</div>
+          <div class="kpi-sub">Across 86 MV/LV transformers</div>
+        </div>
+        <div class="card">
+          <div class="kpi-lbl">Est. Loss Reduction</div>
+          <div class="kpi-val healthy sm">90.1 kW</div>
+          <div class="kpi-sub">If all planned projects executed</div>
+        </div>
+        <div class="card">
+          <div class="kpi-lbl">Mini-grid Status</div>
+          <div class="kpi-val accent sm">Islanded</div>
+          <div class="kpi-sub">SOC 68% &mdash; PV: 185 kW</div>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="card">
+          <div class="card-hd">Priority Investment Projects</div>
+          <div id="chart-exec-invest" style="height:280px;"></div>
+        </div>
+        <div class="card">
+          <div class="card-hd">Transformer Loading Summary</div>
+          <div id="chart-exec-loading" style="height:280px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 2. DIGITAL TWIN ===== -->
+    <div class="view" id="view-twin">
+      <div class="twin-layout">
+        <div class="card twin-canvas-card" style="padding:16px;">
+          <div class="card-hd no-mb" style="margin-bottom:12px;">Distribution Network &mdash; Garki 33/11kV</div>
+          <div class="twin-svg-wrap" id="twin-svg-wrap">
+            <svg id="twin-svg" viewBox="0 0 900 680" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"></svg>
+          </div>
+          <div style="display:flex;gap:16px;margin-top:12px;font-size:11px;color:var(--col-text-2);">
+            <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#0ca30c;display:inline-block;"></span>Healthy</span>
+            <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#e65100;display:inline-block;"></span>Warning</span>
+            <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#b91c1c;display:inline-block;"></span>Critical</span>
+            <span style="display:flex;align-items:center;gap:5px;"><span style="width:18px;height:3px;background:#546e7a;display:inline-block;"></span>MV Bus</span>
+            <span style="display:flex;align-items:center;gap:5px;"><span style="width:18px;height:2px;border-top:2px dashed #90a4ae;display:inline-block;"></span>Feeder</span>
+          </div>
+        </div>
+        <div class="twin-panel">
+          <div class="card" id="asset-panel" style="padding:16px;">
+            <div class="card-hd no-mb" style="margin-bottom:12px;">Asset Details</div>
+            <div id="asset-panel-body" style="color:var(--col-text-3);font-size:13px;text-align:center;padding:40px 0;">
+              Select a transformer or substation on the network diagram to view details.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 3. LOAD ANALYSIS ===== -->
+    <div class="view" id="view-load">
+      <div class="card mb20">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+          <div class="card-hd no-mb">Aggregate Load Profile &mdash; AEDC Garki District</div>
+          <div class="tab-bar">
+            <button class="tab-btn active" onclick="switchProfile('daily',this)">Daily</button>
+            <button class="tab-btn" onclick="switchProfile('weekly',this)">Weekly</button>
+            <button class="tab-btn" onclick="switchProfile('monthly',this)">Monthly</button>
+            <button class="tab-btn" onclick="switchProfile('annual',this)">Annual</button>
+          </div>
+        </div>
+        <div id="chart-load-profile" style="height:300px;"></div>
+      </div>
+      <div class="g2 mb20">
+        <div class="card">
+          <div class="card-hd">Loading Heatmap &mdash; Hour vs Day of Week</div>
+          <div id="chart-heatmap" style="height:220px;"></div>
+        </div>
+        <div class="card">
+          <div class="card-hd">Top 5 Highest Loaded Transformers</div>
+          <table class="tbl">
+            <thead><tr><th>Asset</th><th>Feeder</th><th>kVA</th><th>Loading</th></tr></thead>
+            <tbody id="tbl-load-top"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hd">All Transformer Loading Ranking</div>
+        <div id="chart-load-ranking" style="height:320px;"></div>
+      </div>
+    </div>
+
+    <!-- ===== 4. CONSTRAINT ANALYSIS ===== -->
+    <div class="view" id="view-constraint">
+      <div class="g4 mb20">
+        <div class="card"><div class="kpi-lbl">Overloaded Transformers</div><div class="kpi-val critical">2</div></div>
+        <div class="card"><div class="kpi-lbl">Voltage Violations</div><div class="kpi-val warning">5</div></div>
+        <div class="card"><div class="kpi-lbl">Feeder Bottlenecks</div><div class="kpi-val warning">1</div></div>
+        <div class="card"><div class="kpi-lbl">Available MV Capacity</div><div class="kpi-val healthy">3.2 MW</div></div>
+      </div>
+      <div class="g2 mb20">
+        <div class="card" style="grid-column:span 2;">
+          <div class="card-hd">Constraint Register</div>
+          <table class="tbl">
+            <thead><tr><th>Severity</th><th>Asset</th><th>Problem</th><th>Root Cause</th><th>Recommended Action</th><th>Priority</th></tr></thead>
+            <tbody id="tbl-constraints"></tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-hd">Feeder F1 Constraint Map &mdash; Model Validation</div>
+        <p style="font-size:13px; color:var(--col-text-2); margin-bottom:16px;">
+          The digital twin simulates loading on every line segment. Toggling the overlay drops AEDC's historically recorded outage clusters onto the map: the model's predicted weak points and real-world network failures align with 78% accuracy, without the model ever having seen the outage data.
+        </p>
+        
+      <div class="toggle-row">
+        <div class="legend">
+          <span class="lg"><span class="swatch" style="background:var(--seq-100)"></span>&lt; 40% loading</span>
+          <span class="lg"><span class="swatch" style="background:var(--seq-250)"></span>40–70%</span>
+          <span class="lg"><span class="swatch" style="background:var(--seq-450)"></span>70–90%</span>
+          <span class="lg"><span class="swatch" style="background:var(--seq-650)"></span>&gt; 90% (overload)</span>
+          <span class="lg"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M7 1 L13 12 L1 12 Z" fill="none" stroke="var(--critical)" stroke-width="1.8"/></svg>Voltage violation</span>
+          <span class="lg" id="lg-outage" style="display:none;"><svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 2 L10 10 M10 2 L2 10" stroke="var(--ink-1)" stroke-width="2" stroke-linecap="round"/></svg>Recorded outage cluster</span>
+        </div>
+        <button class="btn" id="overlayBtn" aria-pressed="false">Overlay outage history</button>
+      </div>
+
+      <svg id="feederMap" viewBox="0 0 1000 340" width="100%" role="img" aria-label="Schematic map of feeder F1 with segments coloured by loading and outage history overlay">
+        <!-- trunk -->
+        <g stroke-linecap="round" fill="none">
+          <path d="M40 170 H190"  stroke="var(--seq-250)" stroke-width="7" class="seg" data-n="Injection – S1" data-v="Loading 52% · 33 kV trunk"/>
+          <path d="M190 170 H370" stroke="var(--seq-450)" stroke-width="7" class="seg" data-n="S1 – S4" data-v="Loading 81% · approaching thermal limit"/>
+          <path d="M370 170 H560" stroke="var(--seq-650)" stroke-width="7" class="seg" data-n="S4 – S7 (Karu spur head)" data-v="Loading 96% · OVERLOAD, ranked constraint #1"/>
+          <path d="M560 170 H760" stroke="var(--seq-250)" stroke-width="7" class="seg" data-n="S7 – S10" data-v="Loading 57%"/>
+          <path d="M760 170 H950" stroke="var(--seq-100)" stroke-width="7" class="seg" data-n="S10 – end" data-v="Loading 24%"/>
+          <!-- branches -->
+          <path d="M190 170 L250 80"  stroke="var(--seq-100)" stroke-width="5" class="seg" data-n="Branch B1" data-v="Loading 31%"/>
+          <path d="M250 80 L360 55"   stroke="var(--seq-250)" stroke-width="5" class="seg" data-n="Branch B1 ext." data-v="Loading 46%"/>
+          <path d="M370 170 L430 265" stroke="var(--seq-650)" stroke-width="5" class="seg" data-n="Branch B2 (market cluster)" data-v="Loading 93% · OVERLOAD, ranked constraint #2"/>
+          <path d="M430 265 L560 295" stroke="var(--seq-450)" stroke-width="5" class="seg" data-n="Branch B2 ext." data-v="Loading 74%"/>
+          <path d="M560 170 L640 70"  stroke="var(--seq-250)" stroke-width="5" class="seg" data-n="Branch B3" data-v="Loading 49%"/>
+          <path d="M640 70 L790 45"   stroke="var(--seq-100)" stroke-width="5" class="seg" data-n="Branch B3 ext." data-v="Loading 22% · end-of-line voltage 0.93 pu"/>
+          <path d="M760 170 L830 260" stroke="var(--seq-100)" stroke-width="5" class="seg" data-n="Branch B4" data-v="Loading 18% · end-of-line voltage 0.94 pu"/>
+        </g>
+        <!-- nodes -->
+        <g fill="var(--surface-1)" stroke="var(--axis)" stroke-width="1.6">
+          <rect x="28" y="152" width="24" height="36" rx="4" stroke="var(--ink-2)"/>
+          <circle cx="190" cy="170" r="6"/><circle cx="370" cy="170" r="6"/><circle cx="560" cy="170" r="6"/>
+          <circle cx="760" cy="170" r="6"/><circle cx="950" cy="170" r="6"/>
+          <circle cx="250" cy="80" r="5"/><circle cx="360" cy="55" r="5"/>
+          <circle cx="430" cy="265" r="5"/><circle cx="560" cy="295" r="5"/>
+          <circle cx="640" cy="70" r="5"/><circle cx="790" cy="45" r="5"/><circle cx="830" cy="260" r="5"/>
+        </g>
+        <!-- voltage violation markers -->
+        <g fill="none" stroke="var(--critical)" stroke-width="2">
+          <path d="M790 24 L799 40 L781 40 Z"/>
+          <path d="M830 238 L839 254 L821 254 Z"/>
+          <path d="M560 274 L569 290 L551 290 Z"/>
+        </g>
+        <!-- labels -->
+        <text x="40" y="210" class="axis-t">33 kV injection</text>
+        <text x="465" y="136" text-anchor="middle" class="lbl-t">96% · constraint #1</text>
+        <text x="352" y="242" text-anchor="end" class="lbl-t">93% · constraint #2</text>
+        <text x="806" y="20" class="axis-t">0.93 pu</text>
+        <!-- outage overlay -->
+        <g id="outageLayer" style="display:none;">
+          <g stroke="var(--ink-1)" stroke-width="2.4" stroke-linecap="round">
+            <path d="M455 155 L471 171 M471 155 L455 171"/>
+            <path d="M500 152 L516 168 M516 152 L500 168"/>
+            <path d="M418 236 L434 252 M434 236 L418 252"/>
+            <path d="M300 152 L316 168 M316 152 L300 168"/>
+            <path d="M652 60 L668 76 M668 60 L652 76"/>
+          </g>
+          <g class="axis-t" fill="var(--ink-2)">
+            <text x="465" y="114" text-anchor="middle">11 recorded outages</text>
+            <text x="444" y="250">6 recorded outages</text>
+          </g>
+        </g>
+      </svg>
+
+      <div class="callout" id="mapCallout">
+        <strong>The demo beat:</strong> run the constraint analysis blind, then press the toggle. In this mock, 78% of recorded outages fall inside the twin's predicted constraint zones. AEDC's own records validate the model, not our claims.
+      </div>
+    
+      </div>
+
+      </div>
+    </div>
+
+    <!-- ===== 5. INVESTMENT PLANNING ===== -->
+    <div class="view" id="view-invest">
+      <div class="card mb20">
+        <div class="budget-display">
+          <div>
+            <div class="kpi-lbl">Capital Budget Allocation</div>
+            <div class="budget-amount" id="budget-display">₦150,000</div>
+          </div>
+          <div style="text-align:right;font-size:12px;color:var(--col-text-2);">
+            <div id="budget-included-count">— projects included</div>
+            <div id="budget-included-cost" style="font-weight:600;color:var(--col-accent);"></div>
+          </div>
+        </div>
+        <input type="range" class="budget-slider" id="budget-slider" min="0" max="300000" step="5000" value="150000" oninput="updateBudget(this.value)">
+        <div class="budget-marks"><span>₦0</span><span>₦75k</span><span>₦150k</span><span>₦225k</span><span>₦300k</span></div>
+      </div>
+      
+      <div class="g2 mb20">
+        <div class="card">
+          <div class="card-hd">Cumulative Benefit vs. Spend (Diminishing Returns)</div>
+          <p style="font-size:11.5px; color:var(--col-text-2); margin-bottom:12px; line-height:1.4;">
+            <strong>Cumulative CAPEX</strong> represents the running total of Nigeria Naira (₦) spent as you fund projects from highest to lowest priority. 
+            <strong>Cumulative Loss Reduction</strong> (green line) shows the technical efficiency gained (kW saved). The flattening curve illustrates diminishing returns, indicating the optimal budget cutoff point.
+          </p>
+          <div id="chart-invest-waterfall" style="height:260px;"></div>
+        </div>
+        <div class="card">
+          <div class="card-hd">Customers Benefited per Project</div>
+          <p style="font-size:11.5px; color:var(--col-text-2); margin-bottom:12px; line-height:1.4;">
+            This chart tracks the direct social impact of each investment, showing the number of consumers that will experience improved voltage profiles and reduced outages upon completion of the respective asset reinforcement.
+          </p>
+          <div id="chart-invest-customers" style="height:260px;"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-hd">Investment Project Register</div>
+        <table class="tbl">
+          <thead><tr><th>#</th><th>Project</th><th>Constraint Resolved</th><th>CAPEX</th><th>Load Reduction</th><th>Loss Reduction</th><th>Customers</th><th>Priority</th><th>Status</th></tr></thead>
+          <tbody id="tbl-invest"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== 6. SCENARIO SIMULATION ===== -->
+    <div class="view" id="view-scenario">
+      <div class="card mb20">
+        <div class="card-hd">Simulation Parameters</div>
+        <div class="g3">
+          <div>
+            <div class="kpi-lbl" style="margin-bottom:8px;">Load Growth: <strong id="lbl-growth">10%</strong></div>
+            <input type="range" style="width:100%;accent-color:var(--col-accent);" min="0" max="30" step="1" value="10" oninput="updateScenario('growth',this.value)">
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--col-text-3);margin-top:4px;"><span>0%</span><span>15%</span><span>30%</span></div>
+          </div>
+          <div>
+            <div class="kpi-lbl" style="margin-bottom:8px;">DER Penetration: <strong id="lbl-der">5%</strong></div>
+            <input type="range" style="width:100%;accent-color:var(--col-accent);" min="0" max="40" step="1" value="5" oninput="updateScenario('der',this.value)">
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--col-text-3);margin-top:4px;"><span>0%</span><span>20%</span><span>40%</span></div>
+          </div>
+          <div>
+            <div class="kpi-lbl" style="margin-bottom:8px;">New Customers: <strong id="lbl-cust">50</strong></div>
+            <input type="range" style="width:100%;accent-color:var(--col-accent);" min="0" max="500" step="10" value="50" oninput="updateScenario('cust',this.value)">
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--col-text-3);margin-top:4px;"><span>0</span><span>250</span><span>500</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="g2 mb20">
+        <div class="card" style="border-top:3px solid var(--col-border);">
+          <div class="card-hd">Current State (Baseline)</div>
+          <div id="scenario-before"></div>
+        </div>
+        <div class="card" style="border-top:3px solid var(--col-accent);">
+          <div class="card-hd">Simulated State (After)</div>
+          <div id="scenario-after"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hd">Per-Transformer Loading Comparison</div>
+        <div id="chart-scenario-compare" style="height:300px;"></div>
+      </div>
+    </div>
+
+    <!-- ===== 7. MINI-GRID ===== -->
+    <div class="view" id="view-minigrid">
+    <div class="mg-grid">
+      <div class="card">
+        <div class="chart-title">PV generation and local demand</div>
+        <div class="chart-sub">kW · simulated 24 h profile from AEDC-provided data</div>
+        <div class="legend">
+          <span class="lg"><span class="linekey" style="background:var(--s1)"></span>PV generation</span>
+          <span class="lg"><span class="linekey" style="background:var(--s2)"></span>Local demand</span>
+          <span class="lg"><span class="swatch" style="background:var(--grid)"></span>Islanded window</span>
+        </div>
+        <svg id="chartGen" viewBox="0 0 620 260" width="100%" role="img" aria-label="Line chart of PV generation and local demand over 24 hours with islanded window shaded"></svg>
+      </div>
+      <div class="mg-col">
+        <div class="card">
+          <div class="chart-title">Exchange at the PCC</div>
+          <div class="chart-sub">kW · export to AEDC grid above zero, import below</div>
+          <div class="legend">
+            <span class="lg"><span class="swatch" style="background:var(--s1)"></span>Export</span>
+            <span class="lg"><span class="swatch" style="background:var(--div-neg)"></span>Import</span>
+          </div>
+          <svg id="chartPcc" viewBox="0 0 620 190" width="100%" role="img" aria-label="Diverging bar chart of power exchanged at the point of common coupling over 24 hours"></svg>
+        </div>
+        <div class="card">
+          <div class="chart-title">Battery state of charge</div>
+          <div class="chart-sub">% · held above the 30% islanding reserve all day</div>
+          <svg id="chartSoc" viewBox="0 0 620 150" width="100%" role="img" aria-label="Line chart of battery state of charge over 24 hours"></svg>
+          <div class="meter-row">
+            <span class="chart-sub" style="margin:0;">Now (14:00)</span>
+            <div class="meter"><div id="socMeter"></div></div>
+            <span class="meter-val" id="socNow">–</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    </div>
+
+    <!-- ===== 8. VPP ===== -->
+    <div class="view" id="view-vpp">
+      <div class="card mb20">
+        <div class="card-hd">24-Hour Forecast vs Actual &mdash; Generation &amp; Demand</div>
+        <div id="chart-vpp-forecast" style="width:100%; height:320px;"></div>
+      </div>
+      <div class="g2 mb20">
+        <div class="card">
+          <div class="card-hd">Aggregated Resource Stack</div>
+          <div id="chart-vpp-stack" style="width:100%; height:260px;"></div>
+        </div>
+        <div class="card">
+          <div class="card-hd">Flexibility &amp; Reserve</div>
+          <table class="tbl" style="margin-top:8px;">
+            <tbody>
+              <tr><td><span class="dot green" style="display:inline-block;margin-right:6px;"></span>Available Upward Flex</td><td style="text-align:right;font-weight:700;font-family:var(--font-mono);">+145 kW</td></tr>
+              <tr><td><span class="dot amber" style="display:inline-block;margin-right:6px;"></span>Available Downward Flex</td><td style="text-align:right;font-weight:700;font-family:var(--font-mono);">−32 kW</td></tr>
+              <tr><td style="padding-top:16px;color:var(--col-text-2);">Operating Margin</td><td style="text-align:right;font-weight:700;color:var(--col-accent);padding-top:16px;">18.2%</td></tr>
+              <tr><td style="color:var(--col-text-2);">Minimum Reserve</td><td style="text-align:right;font-weight:700;">10.0%</td></tr>
+              <tr><td style="color:var(--col-text-2);">PV Capacity Factor</td><td style="text-align:right;font-weight:700;">34.1%</td></tr>
+              <tr><td style="color:var(--col-text-2);">Battery Roundtrip Eff.</td><td style="text-align:right;font-weight:700;">91.4%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hd">VPP Energy Flow (Sankey)</div>
+        <div id="chart-vpp-sankey" style="width:100%; height:280px;"></div>
+      </div>
+    </div>
+
+    <!-- ===== 9. DATA QUALITY ===== -->
+    <div class="view" id="view-data">
+      <div class="g2 mb20" style="align-items:start;">
+        <div class="g2" style="grid-column:span 1;">
+          <div class="card"><div class="kpi-lbl">Records Received (24h)</div><div class="kpi-val">284,510</div></div>
+          <div class="card"><div class="kpi-lbl">Completeness</div><div class="kpi-val healthy">94%</div></div>
+          <div class="card"><div class="kpi-lbl">Missing Assets</div><div class="kpi-val warning">12</div></div>
+          <div class="card"><div class="kpi-lbl">Topology Errors</div><div class="kpi-val critical">4</div></div>
+          <div class="card"><div class="kpi-lbl">Duplicate Assets</div><div class="kpi-val warning">7</div></div>
+          <div class="card"><div class="kpi-lbl">Unknown Connections</div><div class="kpi-val warning">3</div></div>
+        </div>
+        <div class="card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px;">
+          <div class="card-hd" style="text-align:center;">Data Readiness Score</div>
+          <div class="dq-gauge-wrap" style="position:relative;width:180px;height:100px;">
+            <svg viewBox="0 0 180 100" style="width:180px;height:100px;overflow:visible;">
+              <path d="M 20 90 A 70 70 0 0 1 160 90" fill="none" stroke="#edf0f3" stroke-width="14" stroke-linecap="round"/>
+              <path id="dq-arc" d="M 20 90 A 70 70 0 0 1 160 90" fill="none" stroke="#0ca30c" stroke-width="14" stroke-linecap="round" stroke-dasharray="220" stroke-dashoffset="22"/>
+            </svg>
+            <div style="position:absolute;bottom:-4px;width:100%;text-align:center;">
+              <div style="font-family:var(--font-num);font-size:38px;font-weight:700;color:var(--col-primary);line-height:1;">91%</div>
+            </div>
+          </div>
+          <div class="badge healthy" style="margin-top:16px;font-size:12px;padding:6px 14px;">Ready for Planning</div>
+        </div>
+      </div>
+      <div class="card mb20">
+        <div class="card-hd">30-Day Data Gap Calendar</div>
+        <div id="chart-dq-calendar" style="height:160px;"></div>
+      </div>
+      <div class="card">
+        <div class="card-hd">Active Data Quality Issues</div>
+        <table class="tbl">
+          <thead><tr><th>Severity</th><th>Asset Class</th><th>Issue</th><th>Impact</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge critical">Critical</span></td><td>Substation</td><td>Missing incoming 33kV connection to Garki SUB-01</td><td>Load flow cannot trace upstream</td><td><span class="badge warning">Investigating</span></td></tr>
+            <tr><td><span class="badge warning">Warning</span></td><td>Transformer</td><td>Missing kVA rating for TX-04</td><td>Loading % cannot be computed</td><td><span class="badge warning">Investigating</span></td></tr>
+            <tr><td><span class="badge warning">Warning</span></td><td>Customer</td><td>Orphaned cluster &mdash; coordinates out of bounds</td><td>Demand underestimated ~45 kW</td><td><span class="badge healthy">Resolved</span></td></tr>
+            <tr><td><span class="badge critical">Critical</span></td><td>Feeder</td><td>Circular dependency on F-02 laterals</td><td>Topology processor failed to build tree</td><td><span class="badge warning">Investigating</span></td></tr>
+            <tr><td><span class="badge neutral">Low</span></td><td>Meter</td><td>17 smart meters missing timestamps &gt;12h</td><td>Missing data filled by interpolation</td><td><span class="badge healthy">Auto-resolved</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- end workspace -->
+</div><!-- end main-area -->
+
+
+<div class="tip" id="tip"></div>
+</body>
+</html>
