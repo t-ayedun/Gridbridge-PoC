@@ -1,0 +1,22 @@
+{
+    "dataset": "OSM Power Infrastructure",
+    "total_layers": 15,
+    "total_features": 16649,
+    "layers": {
+        "gis_osm_power-facility-details_07_1": 161,
+        "gis_osm_power-facility-details_a_07_1": 5,
+        "gis_osm_power-facility-details_l_07_1": 2,
+        "gis_osm_power-generators_07_1": 1106,
+        "gis_osm_power-generators_a_07_1": 289,
+        "gis_osm_power-lines_l_07_1": 1186,
+        "gis_osm_power-masts_07_1": 11454,
+        "gis_osm_power-other_07_1": 2,
+        "gis_osm_power-other_a_07_1": 0,
+        "gis_osm_power-plants_07_1": 25,
+        "gis_osm_power-plants_a_07_1": 25,
+        "gis_osm_power-substations_07_1": 1216,
+        "gis_osm_power-substations_a_07_1": 1073,
+        "gis_osm_power-transformers_07_1": 105,
+        "gis_osm_power-transformers_a_07_1": 0
+    }
+}

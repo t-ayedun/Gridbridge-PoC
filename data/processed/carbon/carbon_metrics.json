@@ -1,0 +1,9 @@
+{
+    "baseline_grid_intensity_gco2_kwh": 485,
+    "diesel_displacement_intensity_gco2_kwh": 780,
+    "solar_pv_intensity_gco2_kwh": 42,
+    "daily_solar_generation_kwh": 2460.0,
+    "daily_co2_offset_kg": 1815.48,
+    "annual_co2_offset_tons": 662.7,
+    "target_2030_grid_intensity_gco2_kwh": 250
+}

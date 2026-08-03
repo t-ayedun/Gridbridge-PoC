@@ -1,0 +1,7 @@
+{
+    "dataset": "KEDCO Network Data",
+    "transformers_count": 7147,
+    "substations_count": 44,
+    "mv_lines_count": 5022,
+    "total_mv_length_km": 0.0
+}

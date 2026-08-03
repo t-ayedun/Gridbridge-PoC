@@ -1,0 +1,38 @@
+[
+    {
+        "segment": "F-01 S1",
+        "bus_id": "s",
+        "headroom_kw": 2800,
+        "limiting_factor": "Thermal Line Limit"
+    },
+    {
+        "segment": "F-01 S2",
+        "bus_id": "ls_bus",
+        "headroom_kw": 2800,
+        "limiting_factor": "Thermal Line Limit"
+    },
+    {
+        "segment": "F-01 S3",
+        "bus_id": "feederhead",
+        "headroom_kw": 2800,
+        "limiting_factor": "Thermal Line Limit"
+    },
+    {
+        "segment": "F-01 S4",
+        "bus_id": "b12541",
+        "headroom_kw": 2800,
+        "limiting_factor": "Thermal Line Limit"
+    },
+    {
+        "segment": "F-01 S5",
+        "bus_id": "b13552",
+        "headroom_kw": 2800,
+        "limiting_factor": "Thermal Line Limit"
+    },
+    {
+        "segment": "F-01 S6",
+        "bus_id": "b41868",
+        "headroom_kw": 2800,
+        "limiting_factor": "Thermal Line Limit"
+    }
+]

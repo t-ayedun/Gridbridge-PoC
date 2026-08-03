@@ -1,0 +1,80 @@
+[
+    {
+        "Project_ID":"INV-05",
+        "Target_Asset":"F-01 Trunk Line (2.4 km)",
+        "Constraint":"Thermal Line Bottleneck",
+        "Intervention":"Reconductor 2.4km AAC to ACSR",
+        "CAPEX_USD":60000.0,
+        "Customers_Benefited":500,
+        "Expected_Loss_Reduction_kW":14.5,
+        "Load_Relief_pct":15,
+        "CAPEX_NGN":82200000,
+        "Priority_Score":248.2,
+        "Rank":1
+    },
+    {
+        "Project_ID":"INV-03",
+        "Target_Asset":"F-01 Feeder Midpoint",
+        "Constraint":"End-of-line Voltage Drop (<0.93 pu)",
+        "Intervention":"Install 2MVAr Capacitor Bank",
+        "CAPEX_USD":28000.0,
+        "Customers_Benefited":450,
+        "Expected_Loss_Reduction_kW":8.4,
+        "Load_Relief_pct":5,
+        "CAPEX_NGN":38400000,
+        "Priority_Score":205.0,
+        "Rank":2
+    },
+    {
+        "Project_ID":"INV-01",
+        "Target_Asset":"TX-07 (Karu Market Spur)",
+        "Constraint":"Critical Overload (112%) & Voltage 0.89 pu",
+        "Intervention":"Upgrade to 800kVA Transformer",
+        "CAPEX_USD":35000.0,
+        "Customers_Benefited":160,
+        "Expected_Loss_Reduction_kW":15.5,
+        "Load_Relief_pct":42,
+        "CAPEX_NGN":48000000,
+        "Priority_Score":136.4,
+        "Rank":3
+    },
+    {
+        "Project_ID":"INV-02",
+        "Target_Asset":"TX-03 (Old Garki Spur)",
+        "Constraint":"Critical Overload (105%) & Voltage 0.91 pu",
+        "Intervention":"Upgrade to 800kVA Transformer",
+        "CAPEX_USD":35000.0,
+        "Customers_Benefited":145,
+        "Expected_Loss_Reduction_kW":12.0,
+        "Load_Relief_pct":35,
+        "CAPEX_NGN":48000000,
+        "Priority_Score":116.0,
+        "Rank":4
+    },
+    {
+        "Project_ID":"INV-04",
+        "Target_Asset":"TX-06 (Area 11 Commercial)",
+        "Constraint":"High Load Warning (92%)",
+        "Intervention":"Upgrade to 500kVA Transformer",
+        "CAPEX_USD":22000.0,
+        "Customers_Benefited":120,
+        "Expected_Loss_Reduction_kW":6.8,
+        "Load_Relief_pct":25,
+        "CAPEX_NGN":30100000,
+        "Priority_Score":85.0,
+        "Rank":5
+    },
+    {
+        "Project_ID":"INV-06",
+        "Target_Asset":"TX-02 \/ TX-04 Feeder",
+        "Constraint":"Phase Current Imbalance",
+        "Intervention":"LV Split Feeder & Phase Balancing",
+        "CAPEX_USD":8000.0,
+        "Customers_Benefited":45,
+        "Expected_Loss_Reduction_kW":4.2,
+        "Load_Relief_pct":20,
+        "CAPEX_NGN":11000000,
+        "Priority_Score":44.5,
+        "Rank":6
+    }
+]

@@ -1,0 +1,33 @@
+{
+  "project_name": "GridBridge PoC",
+  "version": "2.0.0",
+  "base_dir": "C:\\Users\\Smarterise PC\\Projects\\PoC",
+  "fx_rate_ngn_per_usd": 1370,
+  "opendss": {
+    "default_master_file": "C:\\Program Files\\OpenDSS\\EPRITestCircuits\\epri_dpv\\J1\\Master_withPV.dss",
+    "stress_load_mult": 1.45,
+    "low_voltage_threshold_pu": 0.95
+  },
+  "weather": {
+    "latitude": 9.07,
+    "longitude": 7.39,
+    "timezone": "Africa/Lagos"
+  },
+  "unit_costs_usd": {
+    "XFMR_UPGRADE_800KVA": 35000,
+    "XFMR_UPGRADE_500KVA": 22000,
+    "CAPACITOR_BANK_2MVAR": 28000,
+    "RECONDUCTOR_KM": 25000,
+    "LV_SPLIT_PHASE": 8000
+  },
+  "carbon": {
+    "baseline_grid_intensity_gco2_kwh": 485,
+    "diesel_gen_intensity_gco2_kwh": 780,
+    "pv_intensity_gco2_kwh": 42
+  },
+  "paths": {
+    "data_raw": "data/raw",
+    "data_processed": "data/processed",
+    "index_html": "index.html"
+  }
+}

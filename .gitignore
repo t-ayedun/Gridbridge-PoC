@@ -1,0 +1,29 @@
+# Large Datasets (Not pushed to Git)
+nigeria-260728-free.gpkg/
+data/raw/nigeria_dre/nigeria_dre_atlas_settlements.csv
+data/raw/nigeria_dre/nigeria_dre_atlas_settlements.geojson
+*.gpkg
+*.sqlite
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+env/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Scratch and outputs
+extraction_results.txt
+ui_ux_structure.txt

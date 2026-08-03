@@ -1,0 +1,8 @@
+{
+    "dataset": "World Bank Nigeria DRE Atlas",
+    "total_settlements": 154319,
+    "total_population": 227884267,
+    "total_buildings": 49499863,
+    "total_daily_demand_mwh": 22818.08,
+    "minigrid_candidate_sites": 40301
+}
